@@ -1,11 +1,11 @@
 import pygame as p
 
 class Kletka:
-    def __init__(self,igra,x,y,razmer_shirina,razmer_visota):
+    def __init__(self,igra,x,y,razmer_shirina,razmer_visota,kakaya_kletka):
         self.x = x
 
         self.y = y
-
+        self.kakaya_kletka=kakaya_kletka
         self.razmer_shirina=razmer_shirina
         self.razmer_visota=razmer_visota
 
