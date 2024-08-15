@@ -10,6 +10,7 @@ class Golova_zmei(baza_zmei.Baza_zmeya):
 
         self.kakaya_kartinka = zagryzka_kartinki()
         self.kartinka = self.kakaya_kartinka[0]
+
     def otrisovka(self):
         super().otrisovka()
 
