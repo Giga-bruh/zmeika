@@ -1,6 +1,7 @@
 import random
 import golova_zmei
 import pygame as p
+import pygame.freetype
 import telo_zmei
 import kletka
 import eda
@@ -10,6 +11,7 @@ class Game:
         self.screen=p.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
         self.spisok_kletok=[]
         self.kletki=kletki
+        self.tekst = p.freetype.Font("kartinki/comic-sans-ms.ttf", 80)
         self.itap2 = 0
         self.stolbci = stolbci
         self.promezhytok = promezhytok
@@ -19,13 +21,16 @@ class Game:
         self.y = 0
         self.zastypil_ili_net=0
         self.proigral_ili_net=0
-        self.sozdanie_kletok()
+        self.sozdanie()
         self.eda=0
         self.spisok_edi=[]
         self.random=10
         self.zmeika_golova=golova_zmei.Golova_zmei(self,self.spisok_kletok[self.random].pramoygolnik.x+6,self.spisok_kletok[self.random].pramoygolnik.y,SCREEN_WIDTH/self.stolbci-self.promezhytok,SCREEN_HEIGHT/self.stolbci-self.promezhytok)
-
-        self.spisok_tel = []
+        self.zmeika_telo = telo_zmei.Telo_zmei(self, self.zmeika_golova.pramoygolnik.x,
+                                               self.zmeika_golova.pramoygolnik.y - 30,
+                                               SCREEN_WIDTH / self.stolbci - self.promezhytok,
+                                               SCREEN_HEIGHT / self.stolbci - self.promezhytok, 1)
+        self.spisok_tel = [self.zmeika_telo]
         self.sobitie_sozdania = p.USEREVENT
 
         p.time.set_timer(self.sobitie_sozdania, 1000)
@@ -36,15 +41,21 @@ class Game:
     def run(self):
 
             while True:
-                self.sozdanie_kletok()
-                self.otrisovka()
-                self.event()
+                if self.proigral_ili_net==0:
+                    self.sozdanie()
+                    self.otrisovka()
+                    self.event()
+                    self.mehaniki_zmie()
+                    self.clock.tick(FPS)
+                    self.screen.fill([1,1,1])
+                else:
+                    self.tekst.render_to(self.screen, [100, 19], "вы проиграли", [1,1,1])
+                    self.otrisovka()
+                    self.clock.tick(FPS)
+                    self.screen.fill([1, 1, 1])
 
 
-                self.clock.tick(FPS)
-                self.screen.fill([1,1,1])
-
-    def sozdanie_kletok(self):
+    def sozdanie(self):
 
         zakoncheno_ili_net=0
         if zakoncheno_ili_net==0 and self.itap2==1:
@@ -66,6 +77,7 @@ class Game:
                     self.x=0
                     self.itap2=1
                     zakoncheno_ili_net=1
+
     def event(self):
         for event in p.event.get():
             if event.type == pg.QUIT:
@@ -74,29 +86,8 @@ class Game:
 
                 self.eda_poyavlenie=eda.Eda(self,self.spisok_kletok[random.randint(0,self.kletki*self.stolbci-1)].pramoygolnik.x+6,self.spisok_kletok[random.randint(0,self.kletki*self.stolbci-1)].pramoygolnik.y,SCREEN_WIDTH/self.stolbci-self.promezhytok,SCREEN_HEIGHT/self.stolbci-self.promezhytok,"kartinki/yabloko.png")
                 self.spisok_edi.append(self.eda_poyavlenie)
-            if self.eda == 1 :
-                self.zmeika_telo = telo_zmei.Telo_zmei(self, self.spisok_kletok[self.random].pramoygolnik.x + 6,
-                                                       self.spisok_kletok[self.random].pramoygolnik.y,
-                                                       SCREEN_WIDTH / self.stolbci - self.promezhytok,
-                                                       SCREEN_HEIGHT / self.stolbci - self.promezhytok, 1)
-                if len(self.spisok_tel)==0:
-                    self.spisok_tel.append(self.zmeika_telo)
-            if self.zmeika_golova.pramoygolnik.centery>SCREEN_HEIGHT :
 
-                self.zmeika_golova.pramoygolnik.centery=0
-
-            if self.zmeika_golova.pramoygolnik.centery<0:
-
-                self.zmeika_golova.pramoygolnik.centery=SCREEN_HEIGHT
-            if self.zmeika_golova.pramoygolnik.centerx>SCREEN_WIDTH :
-
-                self.zmeika_golova.pramoygolnik.centerx=0
-
-            if self.zmeika_golova.pramoygolnik.centerx<0:
-
-                self.zmeika_golova.pramoygolnik.centerx=SCREEN_WIDTH
-
-    def otrisovka(self):
+    def mehaniki_zmie(self):
         if self.proigral_ili_net==0:
             for kletko in self.spisok_kletok:
                 if kletko.pramoygolnik.colliderect(self.zmeika_golova.pramoygolnik):
@@ -143,6 +134,20 @@ class Game:
                     if est_ili_net.pramoygolnik.colliderect(self.zmeika_golova.pramoygolnik):
                         self.eda += 1
                         self.spisok_edi.remove(est_ili_net)
+
+
+        if self.zmeika_golova.pramoygolnik.centery > SCREEN_HEIGHT:
+            self.zmeika_golova.pramoygolnik.centery = 0
+
+        if self.zmeika_golova.pramoygolnik.centery < 0:
+            self.zmeika_golova.pramoygolnik.centery = SCREEN_HEIGHT
+        if self.zmeika_golova.pramoygolnik.centerx > SCREEN_WIDTH:
+            self.zmeika_golova.pramoygolnik.centerx = 0
+
+        if self.zmeika_golova.pramoygolnik.centerx < 0:
+            self.zmeika_golova.pramoygolnik.centerx = SCREEN_WIDTH
+
+    def otrisovka(self):
             for kletka in self.spisok_kletok:
                 kletka.otrisovka()
             self.zmeika_golova.otrisovka()
@@ -150,7 +155,7 @@ class Game:
                 telo.otrisovka()
             for eda in self.spisok_edi:
                 eda.otrisovka()
-        p.display.flip()
+            p.display.flip()
 if __name__ == "__main__":
     Game(SKOLKO_KLETOK,SKOLKO_KLETOK,PROMESHYTOK)
 

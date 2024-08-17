@@ -30,7 +30,3 @@ class Telo_zmei(baza_zmei.Baza_zmeya):
         if self.kakaya_storona == 2:
 
             self.kartinka = self.kakaya_kartinka[1]
-
-
-
-

@@ -38,3 +38,11 @@ def zagryzka_kartinki_hvosta():
                                              SCREEN_HEIGHT / SKOLKO_KLETOK - PROMESHYTOK)
     spisok_kartinok_zmei_tela=[kartinka_dla_razvorotov_hvosta_w_s,kartinka_hvosta_a]
     return spisok_kartinok_zmei_tela
+def zagryzja_kartinki_hvost():
+    kartinka_dla_razvorotov_hvosta_w_s = load_image("kartinki/Snake sprite sheet_6.png",
+                                                    SCREEN_WIDTH / SKOLKO_KLETOK - PROMESHYTOK,
+                                                    SCREEN_HEIGHT / SKOLKO_KLETOK - PROMESHYTOK)
+    kartinka_hvosta_a = load_image("kartinki/Snake sprite sheet_7.png", SCREEN_WIDTH / SKOLKO_KLETOK - PROMESHYTOK,
+                                   SCREEN_HEIGHT / SKOLKO_KLETOK - PROMESHYTOK)
+    spisok_kartinok_zmei_hvosta = [kartinka_dla_razvorotov_hvosta_w_s, kartinka_hvosta_a]
+    return spisok_kartinok_zmei_hvosta
