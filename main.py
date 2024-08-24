@@ -16,18 +16,20 @@ class Game:
         self.stolbci = stolbci
         self.promezhytok = promezhytok
         self.x = 0
-        self.chislo=1
+        self.chislo=0
         self.kakaya_strorona=0
         self.y = 0
         self.zastypil_ili_net=0
         self.proigral_ili_net=0
         self.sozdanie()
-        self.eda=2
+        self.eda=1
+
         self.kakaya_stroka=0
-        self.pribovlnie=10
+        self.pribovlnie=0
         self.spisok_edi=[]
         self.random=0
         self.naskolko_kletok=0
+
         self.test = self.sozdanie_2()
         self.zmeika_golova=golova_zmei.Golova_zmei(self,self.spisok_kletok[self.random].pramoygolnik.x+6,self.spisok_kletok[self.random].pramoygolnik.y,SCREEN_WIDTH/self.stolbci-self.promezhytok,SCREEN_HEIGHT/self.stolbci-self.promezhytok)
         self.zmeika_telo = telo_zmei.Telo_zmei(self, self.zmeika_golova.pramoygolnik.x,
@@ -73,7 +75,7 @@ class Game:
 
                         self.spisok_kletok.append(self.kletka)
 
-                        self.chislo += 1
+
 
                 if self.x!=SCREEN_WIDTH:
                     self.x+=SCREEN_HEIGHT/self.stolbci
@@ -89,7 +91,12 @@ class Game:
             for stolbci in range(0,SKOLKO_KLETOK):
                 kletkj=kletka.Kletka(self,stolbci*(SHRINA_KLETKI+10),stroka*(SHRINA_KLETKI+10),SHRINA_KLETKI,SHRINA_KLETKI,self.chislo)
                 stolbec.append(kletkj)
-                self.chislo+=1
+                if self.chislo==SKOLKO_KLETOK-1:
+                    self.chislo=0
+                else:
+                    self.chislo+=1
+
+
             spisok_strok.append(stolbec)
         return spisok_strok
     def event(self):
@@ -104,38 +111,41 @@ class Game:
 
     def mehaniki_zmie(self):
         if self.proigral_ili_net==0:
+            self.pribovlnie=1
+            self.kakaya_stroka=0
+
             for stroka in self.test:
                 self.kakaya_stroka+=1
                 for kletko in stroka:
 
-                    self.pribovlnie=40
+
                     if kletko.pramoygolnik.colliderect(self.zmeika_golova.pramoygolnik):
                         self.zmeika_golova.ypravlenie(kletko,self.kakaya_stroka)
                         self.zmeika_golova.kakaya_kletka=kletko.kakaya_kletka
-                        self.zmeika_golova.stolbe=self.kakaya_stroka
-                    self.naskolko_kletok=0
+
+                    self.naskolko_kletok = 1
+                    self.naskolko_rastoyanie=10
                     for telo in self.spisok_tel:
 
                         if kletko.pramoygolnik.colliderect(telo.pramoygolnik):
-                            telo.ypravlenie(kletko,self.kakaya_stroka)
-                            telo.kakaya_kletka = kletko.kakaya_kletka
-                            telo.stolbe = self.kakaya_stroka
-                        if telo.kakaya_kletka+self.naskolko_kletok!=self.zmeika_golova.kakaya_kletka:
-                            print(telo.kakaya_kletka)
-                            if telo.kakaya_kletka<self.zmeika_golova.kakaya_kletka:
-                                self.pribovlnie=(+self.pribovlnie)
-                                self.kakaya_strorona =2
-                            elif telo.kakaya_kletka>self.zmeika_golova.kakaya_kletka:
-                                self.pribovlnie=(-self.pribovlnie)
-                                self.kakaya_strorona = 2
-                            if telo.stolbec < self.zmeika_golova.stolbe:
-                                self.pribovlnie = (+self.pribovlnie)
+
+                                telo.ypravlenie(kletko,self.kakaya_stroka)
+                                telo.kakaya_kletka = kletko.kakaya_kletka
+
+
+                        if telo.stolbec+self.naskolko_kletok!=self.zmeika_golova.stolbe or telo.kakaya_kletka+self.naskolko_kletok!=self.zmeika_golova.kakaya_kletka:
+
+
+                            if telo.kakaya_kletka>self.zmeika_golova.kakaya_kletka+self.naskolko_kletok:
+                                self.kakaya_strorona=2
+                            if telo.kakaya_kletka+self.naskolko_kletok<self.zmeika_golova.kakaya_kletka:
+                                self.kakaya_strorona=2
+                            if telo.stolbec>self.zmeika_golova.stolbe+self.naskolko_kletok:
                                 self.kakaya_strorona=1
-                            elif telo.stolbec > self.zmeika_golova.stolbe:
-                                self.pribovlnie = (-self.pribovlnie)
-                                self.kakaya_strorona = 1
+                            if telo.stolbec+self.naskolko_kletok<self.zmeika_golova.stolbe:
+                                self.kakaya_strorona=1
                             if self.kakaya_strorona==2:
-                                print("a")
+
                                 zmeika_telo = telo_zmei.Telo_zmei(self, self.zmeika_golova.pramoygolnik.x,
                                                self.zmeika_golova.pramoygolnik.y,
                                                SCREEN_WIDTH / self.stolbci - self.promezhytok,
@@ -143,10 +153,10 @@ class Game:
 
                                 self.spisok_tel.append(zmeika_telo)
                                 if len(self.spisok_tel) > self.eda:
-
                                     self.spisok_tel.pop(0)
+                                self.kakaya_strorona=0
                             if self.kakaya_strorona == 1:
-                                print("b")
+
                                 zmeika_telo = telo_zmei.Telo_zmei(self, self.zmeika_golova.pramoygolnik.x,
                                                                   self.zmeika_golova.pramoygolnik.y,
                                                                   SCREEN_WIDTH / self.stolbci - self.promezhytok,
@@ -156,12 +166,16 @@ class Game:
                                 self.spisok_tel.append(zmeika_telo)
                                 if len(self.spisok_tel) > self.eda:
                                     self.spisok_tel.pop(0)
+                                self.kakaya_strorona=0
+                            if self.naskolko_kletok<self.eda:
+                                self.naskolko_kletok+=1
 
+                            print(self.naskolko_kletok, len(self.spisok_tel))
 
-                            self.naskolko_kletok+=1
-                        self.pribovlnie+=self.pribovlnie
+                        self.pribovlnie+=1
                         if self.zmeika_golova.pramoygolnik_proverka.colliderect(telo.pramoygolnik_proverka) and telo!=self.spisok_tel[-1]:
                             self.proigral_ili_net=0
+
                 for est_ili_net in self.spisok_edi:
                     if est_ili_net.pramoygolnik.colliderect(self.zmeika_golova.pramoygolnik):
                         self.eda += 1

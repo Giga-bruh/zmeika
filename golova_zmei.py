@@ -1,4 +1,5 @@
 import pygame as p
+import time
 import baza_zmei
 import telo_zmei
 from nastroiki import *
@@ -44,14 +45,17 @@ class Golova_zmei(baza_zmei.Baza_zmeya):
                 self.kartinka = self.kakaya_kartinka[2]
         if self.kyda_dvigatsa != 0:
             if self.kyda_dvigatsa == 1:
-                self.pramoygolnik.centerx -= 1
+                self.pramoygolnik.centerx = self.pramoygolnik.centerx - (PROMESHYTOK + kletko.razmer_shirina)
                 self.pramoygolnik.centery = kletko.pramoygolnik.centery
+
             if self.kyda_dvigatsa == 2:
-                self.pramoygolnik.centery += 1
+                self.pramoygolnik.centery += PROMESHYTOK+20
                 self.pramoygolnik.centerx = kletko.pramoygolnik.centerx
+
             if self.kyda_dvigatsa == 3:
-                self.pramoygolnik.centerx += 1
+                self.pramoygolnik.centerx += PROMESHYTOK+20
                 self.pramoygolnik.centery = kletko.pramoygolnik.centery
+
             if self.kyda_dvigatsa == 4:
-                self.pramoygolnik.centery -= 1
+                self.pramoygolnik.centery = self.pramoygolnik.centery -(PROMESHYTOK+kletko.razmer_shirina)
                 self.pramoygolnik.centerx = kletko.pramoygolnik.centerx

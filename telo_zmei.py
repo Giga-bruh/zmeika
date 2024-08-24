@@ -24,7 +24,7 @@ class Telo_zmei(baza_zmei.Baza_zmeya):
     def ypravlenie(self,kletko,kakpi_stolbec):
         self.stolbec=kakpi_stolbec
         self.kletko=kletko
-        self.kakaya_kletka = self.kletko.kakaya_kletka
+
         klavishi=p.key.get_pressed()
 
 
