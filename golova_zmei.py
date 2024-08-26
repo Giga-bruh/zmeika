@@ -1,6 +1,7 @@
 import pygame as p
 import time
 import baza_zmei
+
 import telo_zmei
 from nastroiki import *
 
@@ -15,10 +16,9 @@ class Golova_zmei(baza_zmei.Baza_zmeya):
     def otrisovka(self):
         super().otrisovka()
 
-    def ypravlenie(self,kletko,kakaoi_stolbec):
-        self.stolbe=kakaoi_stolbec
-        self.kletko = kletko
-        self.kakaya_kletka=self.kletko.kakaya_kletka
+    def ypravlenie(self):
+
+
         klavishi = p.key.get_pressed()
         if klavishi[p.K_a] == True and self.igra.zmeika_telo.kyda_dvigaetsa!=3:
             if self.kyda_dvigatsa!=3:
@@ -45,17 +45,17 @@ class Golova_zmei(baza_zmei.Baza_zmeya):
                 self.kartinka = self.kakaya_kartinka[2]
         if self.kyda_dvigatsa != 0:
             if self.kyda_dvigatsa == 1:
-                self.pramoygolnik.centerx = self.pramoygolnik.centerx - (PROMESHYTOK + kletko.razmer_shirina)
-                self.pramoygolnik.centery = kletko.pramoygolnik.centery
+                self.pramoygolnik.centerx = self.pramoygolnik.centerx - (PROMESHYTOK + SHRINA_KLETKI)
+
 
             if self.kyda_dvigatsa == 2:
-                self.pramoygolnik.centery += PROMESHYTOK+20
-                self.pramoygolnik.centerx = kletko.pramoygolnik.centerx
+                self.pramoygolnik.centery += PROMESHYTOK+SHRINA_KLETKI
+
 
             if self.kyda_dvigatsa == 3:
-                self.pramoygolnik.centerx += PROMESHYTOK+20
-                self.pramoygolnik.centery = kletko.pramoygolnik.centery
+                self.pramoygolnik.centerx += PROMESHYTOK+SHRINA_KLETKI
+
 
             if self.kyda_dvigatsa == 4:
-                self.pramoygolnik.centery = self.pramoygolnik.centery -(PROMESHYTOK+kletko.razmer_shirina)
-                self.pramoygolnik.centerx = kletko.pramoygolnik.centerx
+                self.pramoygolnik.centery = self.pramoygolnik.centery -(PROMESHYTOK+SHRINA_KLETKI)
+
