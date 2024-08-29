@@ -21,11 +21,10 @@ class Telo_zmei(baza_zmei.Baza_zmeya):
     def otrisovka(self):
         super().otrisovka()
 
-    def ypravlenie(self,kletko,kakpi_stolbec):
-        self.stolbec=kakpi_stolbec
-        self.kletko=kletko
+    def ypravlenie(self):
 
-        klavishi=p.key.get_pressed()
+
+
 
 
 

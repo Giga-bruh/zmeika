@@ -15,11 +15,11 @@ class Telo_zmei(baza_zmei.Baza_zmeya):
     def otrisovka(self):
         super().otrisovka()
 
-    def ypravlenie(self,kletko):
+    def ypravlenie(self):
 
-        self.kletko=kletko
 
-        klavishi=p.key.get_pressed()
+
+
 
 
 

@@ -35,7 +35,7 @@ class Game:
         self.zmeika_telo = telo_zmei.Telo_zmei(self, self.zmeika_golova.pramoygolnik.x,
                                                self.zmeika_golova.pramoygolnik.y,
                                                SCREEN_WIDTH / self.stolbci - self.promezhytok,
-                                               SCREEN_HEIGHT / self.stolbci - self.promezhytok, 1,0,self.test[0][1],self.test[0])
+                                               SCREEN_HEIGHT / self.stolbci - self.promezhytok, 1,1,self.test[0][1],self.test[0])
         self.spisok_tel = [self.zmeika_telo]
         self.sobitie_sozdania = p.USEREVENT
 
@@ -105,7 +105,7 @@ class Game:
                 quit()
             if event.type==self.sobitie_sozdania and self.proigral_ili_net==0:
 
-                 self.eda_poyavlenie=eda.Eda(self,self.test[random.randint(0,SKOLKO_KLETOK-1)][random.randint(0,SKOLKO_KLETOK)].x+6,self.test[random.randint(0,SKOLKO_KLETOK-1)][random.randint(0,SKOLKO_KLETOK-1)].y,SCREEN_WIDTH/self.stolbci-self.promezhytok,SCREEN_HEIGHT/self.stolbci-self.promezhytok,"kartinki/yabloko.png")
+                 self.eda_poyavlenie=eda.Eda(self,self.test[random.randint(0,SKOLKO_KLETOK-1)][random.randint(0,SKOLKO_KLETOK-1)].x+6,self.test[random.randint(0,SKOLKO_KLETOK-1)][random.randint(0,SKOLKO_KLETOK-1)].y,SCREEN_WIDTH/self.stolbci-self.promezhytok,SCREEN_HEIGHT/self.stolbci-self.promezhytok,"kartinki/yabloko.png")
 
                  self.spisok_edi.append(self.eda_poyavlenie)
 
@@ -115,14 +115,31 @@ class Game:
             self.pribovlnie=1
             self.kakaya_stroka=0
             self.zmeika_golova.ypravlenie()
-            self.zmeika_telo = telo_zmei.Telo_zmei(self, self.zmeika_golova.pramoygolnik.x,
+
+            for telo in self.spisok_tel:
+                telo.ypravlenie()
+            if self.zmeika_golova.kyda_dvigatsa == 1 or self.zmeika_golova.kyda_dvigatsa == 3:
+
+
+                self.zmeika_telo = telo_zmei.Telo_zmei(self, self.zmeika_golova.pramoygolnik.x,
                                                    self.zmeika_golova.pramoygolnik.y,
                                                    SCREEN_WIDTH / self.stolbci - self.promezhytok,
-                                                   SCREEN_HEIGHT / self.stolbci - self.promezhytok, 1, 0,
+                                                   SCREEN_HEIGHT / self.stolbci - self.promezhytok, 2, 0,
                                                    self.test[0][1], self.test[0])
-            self.spisok_tel.append(self.zmeika_telo)
-            if self.eda<len(self.spisok_tel):
-                self.spisok_tel.pop(0)
+
+                self.spisok_tel.append(self.zmeika_telo)
+                if self.eda < len(self.spisok_tel):
+                    self.spisok_tel.pop(0)
+            elif self.zmeika_golova.kyda_dvigatsa == 2 or self.zmeika_golova.kyda_dvigatsa == 4:
+
+                self.zmeika_telo = telo_zmei.Telo_zmei(self, self.zmeika_golova.pramoygolnik.x,
+                                                       self.zmeika_golova.pramoygolnik.y,
+                                                       SCREEN_WIDTH / self.stolbci - self.promezhytok,
+                                                       SCREEN_HEIGHT / self.stolbci - self.promezhytok, 1, 0,
+                                                       self.test[0][1], self.test[0])
+                self.spisok_tel.append(self.zmeika_telo)
+                if self.eda<len(self.spisok_tel):
+                    self.spisok_tel.pop(0)
 
 
 
@@ -137,6 +154,11 @@ class Game:
 
         if self.zmeika_golova.pramoygolnik.centerx < 0:
             self.zmeika_golova.pramoygolnik.centerx = SCREEN_WIDTH
+        for eda in self.spisok_edi:
+            if eda.pramoygolnik.colliderect(self.zmeika_golova.pramoygolnik):
+                self.spisok_edi.remove(eda)
+                self.eda+=1
+
 
     def otrisovka(self):
             self.screen.fill([1, 1, 1])
