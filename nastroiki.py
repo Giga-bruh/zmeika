@@ -38,7 +38,12 @@ def zagryzka_kartinki_hvosta():
 
     kartinka_hvosta_a =  load_image("kartinki/Snake sprite sheet_3.png", SCREEN_WIDTH / SKOLKO_KLETOK - PROMESHYTOK,
                                              SCREEN_HEIGHT / SKOLKO_KLETOK - PROMESHYTOK)
-    spisok_kartinok_zmei_tela=[kartinka_dla_razvorotov_hvosta_w_s,kartinka_hvosta_a]
+    kartinka_hvosta_dla_povorota = load_image("kartinki/Snake sprite sheet_5.png", SCREEN_WIDTH / SKOLKO_KLETOK - PROMESHYTOK,
+                                   SCREEN_HEIGHT / SKOLKO_KLETOK - PROMESHYTOK)
+    kartinka_tela_dla_provorota= pg.transform.flip(kartinka_hvosta_dla_povorota,0,1)
+    kartinka_tela_dla_provorotaa = pg.transform.flip(kartinka_hvosta_dla_povorota, 1, 1)
+    kartinka_tela_dla_provorotaaa = pg.transform.flip(kartinka_hvosta_dla_povorota, 1, 0)
+    spisok_kartinok_zmei_tela=[kartinka_dla_razvorotov_hvosta_w_s,kartinka_hvosta_a,kartinka_hvosta_dla_povorota,kartinka_tela_dla_provorota,kartinka_tela_dla_provorotaa,kartinka_tela_dla_provorotaaa]
     return spisok_kartinok_zmei_tela
 def zagryzja_kartinki_hvost():
     kartinka_dla_razvorotov_hvosta_w_s = load_image("kartinki/Snake sprite sheet_6.png",

@@ -36,6 +36,15 @@ class Telo_zmei(baza_zmei.Baza_zmeya):
 
             self.kartinka = self.kakaya_kartinka[1]
 
+        if self.kakaya_storona==3:
+            self.kartinka=self.kakaya_kartinka[2]
+        if self.kakaya_storona == 4:
+            self.kartinka = self.kakaya_kartinka[3]
+        if self.kakaya_storona == 5:
+            self.kartinka = self.kakaya_kartinka[4]
+        if self.kakaya_storona == 6:
+            self.kartinka = self.kakaya_kartinka[5]
+
 
 
 

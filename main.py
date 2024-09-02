@@ -24,8 +24,8 @@ class Game:
         self.sozdanie()
         self.eda=3
 
-        self.kakaya_stroka=0
-        self.pribovlnie=0
+        self.kakoe_telo=0
+
         self.spisok_edi=[]
         self.random=0
         self.naskolko_kletok=0
@@ -103,7 +103,7 @@ class Game:
         for event in p.event.get():
             if event.type == pg.QUIT:
                 quit()
-            if event.type==self.sobitie_sozdania and self.proigral_ili_net==0:
+            if event.type==self.sobitie_sozdania and self.proigral_ili_net==0 and len(self.spisok_edi)<=0:
 
                  self.eda_poyavlenie=eda.Eda(self,self.test[random.randint(0,SKOLKO_KLETOK-1)][random.randint(0,SKOLKO_KLETOK-1)].x+6,self.test[random.randint(0,SKOLKO_KLETOK-1)][random.randint(0,SKOLKO_KLETOK-1)].y,SCREEN_WIDTH/self.stolbci-self.promezhytok,SCREEN_HEIGHT/self.stolbci-self.promezhytok,"kartinki/yabloko.png")
 
@@ -113,11 +113,34 @@ class Game:
     def mehaniki_zmie(self):
         if self.proigral_ili_net==0:
             self.pribovlnie=1
-            self.kakaya_stroka=0
-            self.zmeika_golova.ypravlenie()
 
-            for telo in self.spisok_tel:
-                telo.ypravlenie()
+            self.zmeika_golova.ypravlenie()
+            if len(self.spisok_tel) == self.eda:
+
+                for telo in self.spisok_tel:
+
+                    if self.kakoe_telo + 1 == len(self.spisok_tel):
+                        self.kakoe_telo = 0
+
+                    if telo.pramoygolnik.centery < self.spisok_tel[
+                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx==self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centerx and self.zmeika_golova.kyda_dvigatsa %2!=0:
+                        telo.kakaya_storona = 4
+
+                    if telo.pramoygolnik.centery == self.spisok_tel[
+                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx>self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centerx and self.zmeika_golova.kyda_dvigatsa %2==0:
+
+                        telo.kakaya_storona = 5
+                    if telo.pramoygolnik.centery == self.spisok_tel[
+                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx<self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centerx and self.zmeika_golova.kyda_dvigatsa %2==0:
+                        telo.kakaya_storona = 3
+
+                    if telo.pramoygolnik.centery > self.spisok_tel[
+                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx==self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centerx and self.zmeika_golova.kyda_dvigatsa %2!=0:
+                        telo.kakaya_storona = 6
+                        pass
+                    self.kakoe_telo += 1
+                    telo.ypravlenie()
+
             if self.zmeika_golova.kyda_dvigatsa == 1 or self.zmeika_golova.kyda_dvigatsa == 3:
 
 
@@ -140,6 +163,11 @@ class Game:
                 self.spisok_tel.append(self.zmeika_telo)
                 if self.eda<len(self.spisok_tel):
                     self.spisok_tel.pop(0)
+
+
+
+
+
 
 
 
