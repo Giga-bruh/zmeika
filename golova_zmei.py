@@ -12,10 +12,10 @@ class Golova_zmei(baza_zmei.Baza_zmeya):
 
         self.kakaya_kartinka = zagryzka_kartinki()
         self.kartinka = self.kakaya_kartinka[0]
-
+        self.pramoygolnik_proverka = p.rect.Rect([self.x, self.y], [self.shirina/2, self.visota/2])
     def otrisovka(self):
         super().otrisovka()
-
+        p.draw.rect(self.igra.screen, [0, 0, 0], self.pramoygolnik_proverka)
     def ypravlenie(self):
 
 

@@ -22,7 +22,7 @@ class Game:
         self.zastypil_ili_net=0
         self.proigral_ili_net=0
         self.sozdanie()
-        self.eda=6
+        self.eda=3
 
         self.kakoe_telo=0
 
@@ -113,62 +113,28 @@ class Game:
     def mehaniki_zmie(self):
         if self.proigral_ili_net==0:
             self.pribovlnie=1
-            # TODO
-            self.kakoe_telo = 0 # обнуляем перед циклом 
 
             self.zmeika_golova.ypravlenie()
+            if len(self.spisok_tel) == self.eda:
 
-            # TODO
-            if 1: # тут было непонятное и ненужное условие
+                for telo in self.spisok_tel:
 
-                for telo in self.spisok_tel[:-1]: # берём все хвосты, кроме последнего, так как после него уже ничего нет
-                    
-                    # TODO
-                    # Этот код тоже не нужен, так как переменная должна просто каждый раз обнуляться 
-
-                    # if self.kakoe_telo + 1 == len(self.spisok_tel):
-                    #     self.kakoe_telo = 0
+                    if self.kakoe_telo + 1 == len(self.spisok_tel):
+                        self.kakoe_telo = 0
 
                     if telo.pramoygolnik.centery < self.spisok_tel[
-                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx==self.spisok_tel[
-                            self.kakoe_telo+1].pramoygolnik.centerx and telo.pramoygolnik.centery==self.spisok_tel[
-                                self.kakoe_telo-1].pramoygolnik.centery and telo.pramoygolnik.centerx<self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centerx:
+                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx==self.spisok_tel[self.kakoe_telo+1].pramoygolnik.centerx and telo.pramoygolnik.centery==self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centery and telo.pramoygolnik.centerx<self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centerx:
                         telo.kakaya_storona = 4
 
 
                     if telo.pramoygolnik.centery == self.spisok_tel[
-                        self.kakoe_telo - 1].pramoygolnik.centery and telo.pramoygolnik.centerx>self.spisok_tel[
-                            self.kakoe_telo-1].pramoygolnik.centerx and telo.pramoygolnik.centerx==self.spisok_tel[
-                                self.kakoe_telo+1].pramoygolnik.centerx and telo.pramoygolnik.centery<self.spisok_tel[
-                                    self.kakoe_telo+1].pramoygolnik.centery :
+                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx>self.spisok_tel[self.kakoe_telo+1].pramoygolnik.centerx and telo.pramoygolnik.centerx==self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centerx and telo.pramoygolnik.centery<self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centery :
 
                         telo.kakaya_storona = 5
                     if telo.pramoygolnik.centery == self.spisok_tel[
-                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx<self.spisok_tel[
-                            self.kakoe_telo+1].pramoygolnik.centerx and telo.pramoygolnik.centerx==self.spisok_tel[
-                                self.kakoe_telo-1].pramoygolnik.centerx and telo.pramoygolnik.centery>self.spisok_tel[
-                                    self.kakoe_telo-1].pramoygolnik.centery :
+                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx<self.spisok_tel[self.kakoe_telo+1].pramoygolnik.centerx and telo.pramoygolnik.centerx==self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centerx and telo.pramoygolnik.centery>self.spisok_tel[self.kakoe_telo-1].pramoygolnik.centery :
                         telo.kakaya_storona = 3
-                    if telo.pramoygolnik.centery < self.spisok_tel[
-                        self.kakoe_telo - 1].pramoygolnik.centery and telo.pramoygolnik.centerx == self.spisok_tel[
-                        self.kakoe_telo - 1].pramoygolnik.centerx and telo.pramoygolnik.centery == self.spisok_tel[
-                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx < self.spisok_tel[
-                        self.kakoe_telo + 1].pramoygolnik.centerx:
-                        telo.kakaya_storona = 4
 
-                    if telo.pramoygolnik.centery == self.spisok_tel[
-                        self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx > self.spisok_tel[
-                        self.kakoe_telo + 1].pramoygolnik.centerx and telo.pramoygolnik.centerx == self.spisok_tel[
-                        self.kakoe_telo - 1].pramoygolnik.centerx and telo.pramoygolnik.centery < self.spisok_tel[
-                        self.kakoe_telo - 1].pramoygolnik.centery:
-                        telo.kakaya_storona = 5
-                    if telo.pramoygolnik.centery == self.spisok_tel[
-                        self.kakoe_telo - 1].pramoygolnik.centery and telo.pramoygolnik.centerx < self.spisok_tel[
-                        self.kakoe_telo - 1].pramoygolnik.centerx and telo.pramoygolnik.centerx == self.spisok_tel[
-                        self.kakoe_telo + 1].pramoygolnik.centerx and telo.pramoygolnik.centery > self.spisok_tel[
-                        self.kakoe_telo + 1].pramoygolnik.centery:
-                        telo.kakaya_storona = 3
-                    #
 
                     if telo.pramoygolnik.centery > self.spisok_tel[
                             self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx == self.spisok_tel[
@@ -176,18 +142,11 @@ class Game:
                             self.kakoe_telo - 1].pramoygolnik.centery and telo.pramoygolnik.centerx > self.spisok_tel[
                             self.kakoe_telo - 1].pramoygolnik.centerx:
                             telo.kakaya_storona = 6
-                    if telo.pramoygolnik.centery > self.spisok_tel[
-                            self.kakoe_telo - 1].pramoygolnik.centery and telo.pramoygolnik.centerx == self.spisok_tel[
-                            self.kakoe_telo - 1].pramoygolnik.centerx and telo.pramoygolnik.centery == self.spisok_tel[
-                            self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx > self.spisok_tel[
-                            self.kakoe_telo + 1].pramoygolnik.centerx:
-                            telo.kakaya_storona = 6
 
 
                     self.kakoe_telo += 1
                     telo.ypravlenie()
-                    if self.zmeika_golova.pramoygolnik_proverka.colliderect(telo.pramoygolnik_proverka)  and telo!=self.spisok_tel[0]:
-                        self.proigral_ili_net = 1
+
             if self.zmeika_golova.kyda_dvigatsa == 1 or self.zmeika_golova.kyda_dvigatsa == 3:
 
 
@@ -218,20 +177,17 @@ class Game:
 
 
 
+
         if self.zmeika_golova.pramoygolnik.centery > SCREEN_HEIGHT:
-            self.zmeika_golova.pramoygolnik.centery = 20
-
-
+            self.zmeika_golova.pramoygolnik.centery = 0
 
         if self.zmeika_golova.pramoygolnik.centery < 0:
-            self.zmeika_golova.pramoygolnik.centery = SCREEN_HEIGHT+20
+            self.zmeika_golova.pramoygolnik.centery = SCREEN_HEIGHT
         if self.zmeika_golova.pramoygolnik.centerx > SCREEN_WIDTH:
-            self.zmeika_golova.pramoygolnik.centerx = 20
-
+            self.zmeika_golova.pramoygolnik.centerx = 0
 
         if self.zmeika_golova.pramoygolnik.centerx < 0:
-            self.zmeika_golova.pramoygolnik.centerx = SCREEN_WIDTH+20
-
+            self.zmeika_golova.pramoygolnik.centerx = SCREEN_WIDTH
         for eda in self.spisok_edi:
             if eda.pramoygolnik.colliderect(self.zmeika_golova.pramoygolnik):
                 self.spisok_edi.remove(eda)

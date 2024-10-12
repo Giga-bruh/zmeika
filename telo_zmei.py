@@ -16,10 +16,11 @@ class Telo_zmei(baza_zmei.Baza_zmeya):
         self.kartinka = self.kakaya_kartinka[0]
 
 
-        self.pramoygolnik_proverka = p.rect.Rect([self.x, self.y], [self.shirina / 4, self.visota / 4])
+        self.pramoygolnik_proverka = p.rect.Rect([self.x, self.y], [self.shirina/2 , self.visota/2 ])
 
     def otrisovka(self):
         super().otrisovka()
+        p.draw.rect(self.igra.screen,[0,0,0],self.pramoygolnik_proverka)
 
     def ypravlenie(self):
 
@@ -27,23 +28,26 @@ class Telo_zmei(baza_zmei.Baza_zmeya):
 
 
 
+        
+        # TODO
+        self.kartinka = self.kakaya_kartinka[self.kakaya_storona - 1]
+        # весь нижний код, можно замениь одной строкой
 
+        # if self.kakaya_storona==1:
+        #     self.kartinka = self.kakaya_kartinka[0]
 
-        if self.kakaya_storona==1:
-            self.kartinka = self.kakaya_kartinka[0]
+        # if self.kakaya_storona == 2:
 
-        if self.kakaya_storona == 2:
+        #     self.kartinka = self.kakaya_kartinka[1]
 
-            self.kartinka = self.kakaya_kartinka[1]
-
-        if self.kakaya_storona==3:
-            self.kartinka=self.kakaya_kartinka[2]
-        if self.kakaya_storona == 4:
-            self.kartinka = self.kakaya_kartinka[3]
-        if self.kakaya_storona == 5:
-            self.kartinka = self.kakaya_kartinka[4]
-        if self.kakaya_storona == 6:
-            self.kartinka = self.kakaya_kartinka[5]
+        # if self.kakaya_storona==3:
+        #     self.kartinka=self.kakaya_kartinka[2]
+        # if self.kakaya_storona == 4:
+        #     self.kartinka = self.kakaya_kartinka[3]
+        # if self.kakaya_storona == 5:
+        #     self.kartinka = self.kakaya_kartinka[4]
+        # if self.kakaya_storona == 6:
+        #     self.kartinka = self.kakaya_kartinka[5]
 
 
 
