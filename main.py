@@ -113,21 +113,17 @@ class Game:
     def mehaniki_zmie(self):
         if self.proigral_ili_net==0:
             self.pribovlnie=1
-            # TODO
-            self.kakoe_telo = 0 # обнуляем перед циклом 
+
+            self.kakoe_telo = 0
 
             self.zmeika_golova.ypravlenie()
 
-            # TODO
-            if 1: # тут было непонятное и ненужное условие
 
-                for telo in self.spisok_tel[:-1]: # берём все хвосты, кроме последнего, так как после него уже ничего нет
+            if 1:
+
+                for telo in self.spisok_tel[:-1]:
                     
-                    # TODO
-                    # Этот код тоже не нужен, так как переменная должна просто каждый раз обнуляться 
 
-                    # if self.kakoe_telo + 1 == len(self.spisok_tel):
-                    #     self.kakoe_telo = 0
 
                     if telo.pramoygolnik.centery < self.spisok_tel[
                         self.kakoe_telo + 1].pramoygolnik.centery and telo.pramoygolnik.centerx==self.spisok_tel[
